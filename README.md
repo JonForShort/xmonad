@@ -1,0 +1,2 @@
+# xmonad
+sample xmonad configuration
