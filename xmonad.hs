@@ -1,6 +1,7 @@
 import XMonad
 import System.Exit
 import XMonad.Util.Run(spawnPipe)
+import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Layout.NoBorders(noBorders, smartBorders)
@@ -225,10 +226,12 @@ myLayout = avoidStruts $ smartBorders $ tiled ||| Full
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [ className =? "MPlayer"         --> doFloat
-    , resource  =? "winviz.exe"      --> doFloat
-    , resource  =? "desktop_window"  --> doIgnore
-    , resource  =? "kdesktop"        --> doIgnore ]
+    [ className =? "MPlayer"             --> doFloat
+    , className =? "jetbrains-studio"    --> doFloat
+    , className =? "jetbrains-idea"      --> doFloat
+    , resource  =? "winviz.exe"          --> doFloat
+    , resource  =? "desktop_window"      --> doIgnore
+    , resource  =? "kdesktop"            --> doIgnore ]
  
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -254,7 +257,10 @@ myLogHook = dynamicLog
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = spawn "sh ~/.fehbg"
+myStartupHook = composeAll [
+                 spawn "sh ~/.fehbg",
+                 setWMName "LG3D"
+                ]
  
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
